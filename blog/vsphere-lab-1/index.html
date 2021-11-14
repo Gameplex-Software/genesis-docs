@@ -6,22 +6,22 @@
 <meta name="generator" content="verse">
 <meta name="X-UA-Compatible" content="IE=edge">
 
-<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
+<link rel="apple-touch-icon" sizes="57x57" href="./favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="./favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="./favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="./favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="./favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="./favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="./favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="./favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="./favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="./favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+<link rel="manifest" href="./favicon/manifest.json">
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="msapplication-TileImage" content="./favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 
 
@@ -41,20 +41,20 @@
 <title>Deploying BOSH in vSphere using Genesis - Genesis</title>
 
 
-<link rel="stylesheet" href="/site.css?">
-<link rel="alternate home" type="application/rss+xml" title="Genesis - RSS feed" href="/feed.xml">
+<link rel="stylesheet" href="./site.css?">
+<link rel="alternate home" type="application/rss+xml" title="Genesis - RSS feed" href="./feed.xml">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50822525-8"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-50822525-8');</script>
 </head>
 <body>
   <header class="top">
-    <img src="/logo.png?">
+    <img src="./logo.png?">
     <nav>
-      <li><a href="/">Home</a></li>
-      <li><a href="/download/">Download</a></li>
-      <li><a href="/community/">Community</a></li>
-      <li><a href="/docs/">Docs</a></li>
+      <li><a href="./">Home</a></li>
+      <li><a href="./download/">Download</a></li>
+      <li><a href="./community/">Community</a></li>
+      <li><a href="./docs/">Docs</a></li>
     </nav>
   </header>
 
@@ -75,7 +75,7 @@
       <p class="meta">Apr 4 2019</p>
       
       <p class="intro">
-        <img src="/blog/header/francesco-gallaroti-72602.jpg"
+        <img src="./blog/header/francesco-gallaroti-72602.jpg"
              alt="Francesco Gallarotti (@gallarotti), via Unsplash">
         <cite>image credit <a target="_blank" href="https://unsplash.com/@gallarotti">Francesco Gallarotti (@gallarotti), via Unsplash</a></cite>
       </p>
@@ -117,14 +117,14 @@ clicking on the Hosts &amp; Clusters page. A list of available clusters
 will populate the page; write down the name of the cluster you wish to
 deploy your BOSH to.</p>
 
-<p><img class="full" src="/blog/vsphere-lab-1/clusters.png"></p>
+<p><img class="full" src="./blog/vsphere-lab-1/clusters.png"></p>
 
 <p><em>Third</em>, you'll need to get the datastore information by clicking on
 the Datastores tab. A list of available datastores will populate the page;
 write down the name of the datastore you wish to deploy your BOSH within.
 You'll want one with at least a few hundred gigabytes free.</p>
 
-<p><img class="full" src="/blog/vsphere-lab-1/datastore.png"></p>
+<p><img class="full" src="./blog/vsphere-lab-1/datastore.png"></p>
 
 <p><em>Fourth</em> and finally, you'll need the name of the network that your BOSH director will
 be deployed to and do its own deploying to.</p>
@@ -166,7 +166,7 @@ tmux session will still hum along happily on the remote server.</p>
 
 <p>It should look something like this:</p>
 
-<p><img class="full" src="/blog/aws-lab-1/tmux.png"></p>
+<p><img class="full" src="./blog/aws-lab-1/tmux.png"></p>
 
 <p>For the rest of this article, I'm going to assume you're doing
 everything from a tmux session.  There's a <a href="https://jameshunt.us/writings/my-tmux-cheat-sheet.html">tmux cheat sheet</a>
@@ -432,7 +432,7 @@ your infrastructure, and then run: </p>
   <footer>
     <div class="g">
       <div class="x3">
-        <img src="/swlogo.png?">
+        <img src="./swlogo.png?">
 
         <p>Genesis is maintained by Stark &amp; Wayne,
         a leading Cloud-Native consulting firm.</p>
@@ -440,10 +440,10 @@ your infrastructure, and then run: </p>
 
       <div class="x3">
         <nav>
-          <li><a href="/">Home</a></li>
-          <li><a href="/download/">Download</a></li>
-          <li><a href="/community/">Community</a></li>
-          <li><a href="/docs/">Docs</a></li>
+          <li><a href="./">Home</a></li>
+          <li><a href="./download/">Download</a></li>
+          <li><a href="./community/">Community</a></li>
+          <li><a href="./docs/">Docs</a></li>
         </nav>
       </div>
 
@@ -455,6 +455,6 @@ your infrastructure, and then run: </p>
       <p>Copyright &copy; 2021 The Genesis Authors.  All rights reserved.</p>
     </div>
   </footer>
-  <script type="text/javascript" src="/site.js?"></script>
+  <script type="text/javascript" src="./site.js?"></script>
 </body>
 </html>
