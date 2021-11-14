@@ -1,0 +1,34 @@
+  <div class="header">
+    <div>
+      <h1>Download Genesis</h1>
+      <h2>Get You Some Genesis</h2>
+    </div>
+  </div>
+
+  <div class="content downloads">
+    <div>
+      <nav>
+        <h2>Latest Stable</h2>
+        <li><a href="#latest">Genesis v[% latest %]</a></li>
+        <h2>Historic Releases</h2>
+        [% for release in all %][% if release.version != latest %]
+        <li><a href="#v[% release.version %]">[% release.version %]</a></li>
+        [% end %][% end %]
+      </nav>
+    </div>
+
+    <div id="v[% latest %]">
+      <h1 id="latest">Genesis v[% latest %]</h1>
+      [% for release in all %][% if release.version == latest %]
+        [% filter markdown %][% release.notes %][% end %]
+        <a class="button" href="[% release.url %]" target="_blank">Download v[% release.version %]</a>
+      [% end %][% end %]
+
+      [% for release in all %][% if release.version != latest %]
+      <h1 id="v[% release.version %]">Genesis v[% release.version %]</h1>
+      [% filter markdown %][% release.notes %][% end %]
+      <a class="button" href="[% release.url %]" target="_blank">Download v[% release.version %] from Github</a>
+      [% end %][% end %]
+
+    </div>
+  </div>

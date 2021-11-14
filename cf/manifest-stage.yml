@@ -1,0 +1,8 @@
+applications:
+  - name: staging
+    memory: 32M
+    instances: 2
+    buildpacks:
+      - staticfile_buildpack
+    routes:
+      - route: staging.genesisproject.io
