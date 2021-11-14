@@ -1,9 +1,0 @@
-site:
-  title:    Genesis
-  subtitle: Cloud Deployments, Done Right
-  canon:    https://genesisproject.io
-  theme:    slick
-  buster:   7
-
-  analytics:
-    google: UA-50822525-8

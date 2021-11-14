@@ -1,9 +1,0 @@
-applications:
-  - name: web
-    memory: 32M
-    instances: 2
-    buildpacks:
-      - staticfile_buildpack
-    routes:
-      - route: genesisproject.io
-      - route: www.genesisproject.io

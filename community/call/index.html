@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,target-densitydpi=device-dpi">
+<meta name="generator" content="verse">
+<meta name="X-UA-Compatible" content="IE=edge">
+
+<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+<title>Genesis</title>
+
+
+<link rel="stylesheet" href="/site.css?">
+<link rel="alternate home" type="application/rss+xml" title="Genesis - RSS feed" href="/feed.xml">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50822525-8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-50822525-8');</script>
+</head>
+<body>
+  <header class="top">
+    <img src="/logo.png?">
+    <nav>
+      <li><a href="/">Home</a></li>
+      <li><a href="/download/">Download</a></li>
+      <li><a href="/community/">Community</a></li>
+      <li><a href="/docs/">Docs</a></li>
+    </nav>
+  </header>
+
+    <div class="header">
+    <div>
+      <h1>Genesis Roadmap Call</h1>
+      
+    </div>
+  </div>
+
+  <div class="content">
+    <div>
+      <nav>
+        <h2>Coming Up</h2>
+        <li><a href="#next">July 1st, 2021</a></li>
+        <h2>Previous Calls</h2>
+        
+        <li><a href="#20210604">June 4th, 2021</a></li>
+        
+      </nav>
+    </div>
+
+    <div>
+      <h1>Joining the Call</h1>
+
+<p>On the first Thursday of every month, we hold a conference call to discuss
+the Genesis project and its overall direction.  Topics include latest news,
+development progress, and future direction.</p>
+
+<p>The next Genesis Roadmap Call is</p>
+
+<div class="schedule">
+<div class="date">Thursday, July 1st</div>
+<div class="time">at 11:00am Eastern (8:00am Pacific/4:00pm UTC)</div>
+</div>
+
+<p>We use [Zoom][zoom], and will announce the Meeting ID/Link in the <strong>#announcements</strong>
+channel in the [Genesis Slack Org][slack] the day before the call.</p>
+
+<p>Calls are not recorded.</p>
+
+<h2 id="20210701">Agenda for July 1st, 2021</h2>
+
+<ol>
+<li><p>Introductions</p></li>
+<li><p>Announcements</p>
+
+<ul>
+<li>Recent Releases</li>
+<li>Upcoming Releases</li>
+</ul></li>
+<li><p>Open Forum</p></li>
+</ol>
+
+<h1>Past Meetings</h1>
+
+<h2 id="20210604">June 4th, 2021</h2>
+
+<p>The Genesis Release Engineering teams continue to crank out new versions of
+Genesis itself and its BOSH Deployment Kits.</p>
+
+<h3>What's New?</h3>
+
+<p><strong>Cloud Foundry</strong> kit <a href="https://github.com/genesis-community/cf-genesis-kit/releases/tag/v1.10.5">v1.10.5</a>
+was released on May 23rd 2021, which adds support for dynamic X.509 certificate TTL.</p>
+
+<h3>What's Coming Soon?</h3>
+
+<ul>
+<li><p>The <code>genesis update</code> command will allow genesis users to update their genesis
+CLI via the CLI itself. This will be released in 2.7.xx.</p></li>
+<li><p>An updated inheritance system will lean toward using convention over configuration.</p></li>
+<li><p>Genesis will check for whether Bosh environment variables are set and use them if so.</p></li>
+<li><p>The above two improvements will be included in 2.8, which is expected within the next week.</p></li>
+</ul>
+
+<h3>What's Coming in the Future?</h3>
+
+<ul>
+<li><p>Carousel Integration: The Carousel tool allows operators to browse and manage Credhub secrets
+in a Bosh-aware manner. Its rotation feature will be integrated into the Genesis CLI to allow
+for credhub credential rotations.</p></li>
+<li><p>Credhub Integration: In addition to allowing for rotations of credhub secrets via Carousel, 
+the Genesis CLI will be updated to do accomplish adding, checking, and deleting secrets.</p></li>
+<li><p><code>genesis config</code>: This command will give genesis operators a smoother experience for managing 
+<code>.genesis/config</code> files. </p></li>
+<li><p>AutoCommit on Deploy: Genesis will automatically commit state to the deployment’s git repository.
+This will ensure that all deployed state is reflected in the repository’s configs and state files.</p></li>
+<li><p>Cepler Integration: Cepler will generate CI pipelines for deploying and managing Genesis Kits.
+This will decouple pipeline code from the kits themselves.</p></li>
+</ul>
+    </div>
+  </div>
+
+  <footer>
+    <div class="g">
+      <div class="x3">
+        <img src="/swlogo.png?">
+
+        <p>Genesis is maintained by Stark &amp; Wayne,
+        a leading Cloud-Native consulting firm.</p>
+      </div>
+
+      <div class="x3">
+        <nav>
+          <li><a href="/">Home</a></li>
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/community/">Community</a></li>
+          <li><a href="/docs/">Docs</a></li>
+        </nav>
+      </div>
+
+      <div class="x3">
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>Copyright &copy; 2021 The Genesis Authors.  All rights reserved.</p>
+    </div>
+  </footer>
+  <script type="text/javascript" src="/site.js?"></script>
+</body>
+</html>
