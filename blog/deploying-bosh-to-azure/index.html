@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,target-densitydpi=device-dpi">
+<meta name="generator" content="verse">
+<meta name="X-UA-Compatible" content="IE=edge">
+
+<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+<meta name="twitter:card"       content="summary">
+
+
+<meta property="og:type"        content="article">
+<meta property="og:title"       content="Deploying a BOSH to Microsoft Azure Using Genesis and Terraform">
+<meta property="og:site_name"   content="Genesis">
+<meta property="og:url"         content="https://genesisproject.io/writings/deploying-bosh-to-azure.html">
+
+
+<meta property="og:description" content="BOSH is an effective way to manage your infrastructure and Azure is a great
+infrastructure to manage, but before you have a BOSH director, you need to
+bootstrap Azure to a point where you can deploy a BOSH Director to it.
+">
+
+
+<title>Deploying a BOSH to Microsoft Azure Using Genesis and Terraform - Genesis</title>
+
+
+<link rel="stylesheet" href="/site.css?36b8443d934f1beca13af53179c1289057cf340c">
+<link rel="alternate home" type="application/rss+xml" title="Genesis - RSS feed" href="/feed.xml">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50822525-8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-50822525-8');</script>
+</head>
+<body>
+  <header class="top">
+    <img src="/logo.png?ff43466a0e4d90211659736aeee333c9b4d0fa77">
+    <nav>
+      <li><a href="/">Home</a></li>
+      <li><a href="/download/">Download</a></li>
+      <li><a href="/community/">Community</a></li>
+      <li><a href="/docs/">Docs</a></li>
+    </nav>
+  </header>
+
+  
+
+  <div class="header">
+    <div>
+      <h1>The Genesis Blog</h1>
+    </div>
+  </div>
+
+  <div class="blog content ">
+    <div class="autotoc">
+    </div>
+
+    <div data-autotoc-headings="h2" data-autotoc-nav=".autotoc">
+      <h1>Deploying a BOSH to Microsoft Azure Using Genesis and Terraform</h1>
+      <p class="meta">1 Aug 2019</p>
+      
+      <p class="intro">
+        <img src="/blog/header/genesis-on-azure.png"
+             alt="">
+        
+      </p>
+      
+      <h2>Introduction</h2>
+
+<p>BOSH is an effective way to manage your infrastructure and Azure is a great
+infrastructure to manage, but before you have a BOSH director, you need to
+bootstrap Azure to a point where you can deploy a BOSH Director to it.
+Namely, we need an Azure App Registration to use as an automation account,
+a properly configured virtual network, and a virtual machine inside the
+network from which we can deploy the BOSH director.</p>
+
+<h2>Getting Azure Situated</h2>
+
+<h3>Creating an App Registration</h3>
+
+<p>Both Terraform and BOSH perform tasks without user input, and therefore they
+require an automation account that can access the resources they need to
+manipulate. Azure implements these in the form of what they call App
+Registrations. </p>
+
+<p>You will need to create an App Registration, generate a client secret for
+authenticating to that App Registration, and then grant said App
+Registration <code>Contributor</code> access to the subscription in which you would like
+resources to be created. During this process, you will need to collect a few
+details:</p>
+
+<ul>
+<li>The App Client ID</li>
+<li>The client secret that was created</li>
+<li>The ID of the tenant in which the App was created</li>
+<li>The ID of the subscription to which the App was granted access</li>
+</ul>
+
+<h2>Setting up Terraform</h2>
+
+<p>Now that we have automation credentials, we can start standing up
+infrastructure using Terraform. Terraform binaries and documentation can be
+found at <a href="https://terraform.io">https://terraform.io</a>.</p>
+
+<p>We've already made a basic Terraform file for you that can stand up your
+control plane if given a few extra parameters. You can set up your working
+directory for terraform as follows:</p>
+
+<pre><code>~/work/repos → git clone git@github.com:genesis-community/terraforms.git
+Cloning into 'terraforms'...
+remote: Enumerating objects: 26, done.
+remote: Counting objects: 100% (26/26), done.
+remote: Compressing objects: 100% (18/18), done.
+remote: Total 113 (delta 7), reused 23 (delta 4), pack-reused 87
+Receiving objects: 100% (113/113), 1.38 MiB | 3.32 MiB/s, done.
+Resolving deltas: 100% (41/41), done.
+ ~/work/repos → mkdir terraform-work
+ ~/work/repos → cp terraforms/controlplane/azure/azure.tf terraform-work/
+ ~/work/repos → cp terraforms/controlplane/azure/terraform.tfvars.example terraform-work/terraform.tfvars
+ ~/work/repos → cd terraform-work/
+ ~/work/repos/terraform-work → terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider "azurerm" (terraform-providers/azurerm) 1.32.1...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.azurerm: version = "~&gt; 1.32"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+</code></pre>
+
+<p>Input variables for this deployment can be provided by putting their values
+into the <code>terraform.tfvars</code> file. Minimally, you'll need to edit the
+<code>subscription_id</code>, <code>tenant_id</code>, <code>client_id</code>, and <code>client_secret</code>.
+These are all values you should have taken note earlier during the app
+registration steps. </p>
+
+<p>Once configured, run <code>terraform apply</code> from the directory with your <code>azure.tf</code> and
+<code>terraform.tfvars</code> file.</p>
+
+<pre><code>~/work/repos/terraform-work → pwd
+/Users/tom/work/repos/terraform-work
+~/work/repos/terraform-work → terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+...all of the resources to be created...
+
+Plan: 13 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+... many creation lines ...
+
+Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+bastion-box-ip-address = 13.82.181.177
+bastion-box-username = ubuntu
+bastion-box-password = abCdEfGhiJKLmnoPqRStUvWXyz123456
+dns-servers = [
+  "1.1.1.1",
+  "1.0.0.1",
+]
+network-security-group-name = genesis-sg
+recommended-BOSH-director-IP = 10.0.0.5
+resource-group-name = genesis
+subnet-CIDR = 10.0.0.0/24
+subnet-gateway = 10.0.0.1
+subnet-name = genesis-controlplane-subnet
+virtual-network-name = genesis-network
+</code></pre>
+
+<p>Following this command, Terraform will have stood up a resource group,
+virtual network, network security groups, and most importantly, a bastion
+box virtual machine from which you can continue your work. The terraform
+script will also install various tools and libraries on the bastion box that
+Genesis, BOSH, and Cloud Foundry need.</p>
+
+<p>You can see from the example output above (and similarly in your actual
+output) that some output variables are printed at the end of the apply.  You
+will want to copy those output values somewhere for now, as they contain the
+answers to many of the questions that Genesis will ask you later.</p>
+
+<h2>Setting Up Your Bastion Host</h2>
+
+<p>Once your bastion box is created, you can ssh into it to begin working from
+it. The user, password, and IP address can be found in the terraform output
+variables. </p>
+
+<pre><code>~/work/repos/terraform-work → ssh ubuntu@13.82.181.177
+The authenticity of host '13.82.181.177 (13.82.181.177)' can't be established.
+ECDSA key fingerprint is SHA256:vvBs1voA6+R6fDyrPf0+YpH1go9HEv3ThxE4ionswR8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '13.82.181.177' (ECDSA) to the list of known hosts.
+ubuntu@12.82.181.177's password:
+Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.18.0-1024-azure x86_64)
+
+Last login: Mon Aug 12 15:44:03 2019 from 71.186.231.155
+</code></pre>
+
+<p>Before proceeding, you will need to set up the basics of your Git config.
+Run the following with the proper values substituted:</p>
+
+<pre><code>git config --global user.name "YOURNAME"
+git config --global user.email "YOUREMAIL"
+</code></pre>
+
+<h2>Starting a Local Vault Instance</h2>
+
+<p>Genesis stores deployment secrets in Vault, a secure, encrypted-at-rest
+credentials store from Hashicorp. Genesis has opinions about how the
+Vault should be organized, so it's not suggested to colocate the Genesis
+secret store on a pre-existing Vault.</p>
+
+<p>We use the <a href="https://github.com/starkandwayne/safe">Safe CLI</a> to interact
+with Vault in general. The Terraform script has installed it on your bastion
+host. We're going to use <code>safe</code> to quickly set up a temporary local Vault
+instance that Genesis can use until we are able to set up a more permanent
+Vault later, via BOSH.</p>
+
+<p><code>safe</code> will run this Vault as a foreground process, so you will need to open
+up a separate shell session / tmux pane on the jumpbox and run:</p>
+
+<pre><code>safe local --memory --as temp-vault
+</code></pre>
+
+<p>Safe will output the target name of the new Vault, target it, and authenticate
+to it automatically.</p>
+
+<h2>Deploying a New Proto-BOSH</h2>
+
+<p>First, create an <code>deployments</code> directory in which to store your various
+Genesis deployment folders. Then, change to that directory and initialize
+a new Genesis deployment repository:</p>
+
+<pre><code>ubuntu@bastion:~$ mkdir ~/deployments
+ubuntu@bastion:~$ cd ~/deployments
+ubuntu@bastion:~/deployments$ genesis init bosh -k bosh --vault temp-vault
+
+Verifying availability of selected vault...ok
+
+Downloading Genesis kit bosh (latest version)...
+
+Initialized empty Genesis repository in ./bosh-deployments
+ - using vault at http://127.0.0.1:8201 (insecure)
+ - using the bosh/1.4.0 kit.
+</code></pre>
+
+<p><code>cd</code> into the newly created directory. Now we need to set up a new
+proto-BOSH director deployment using <code>genesis new</code>. Genesis new takes a
+positional argument which is the name of the environment that you're
+creating the deployment in. For the purpose of this tutorial, we'll call ours
+<code>test-eastus-controlplane</code>. Genesis will walk you through a series of
+questions about the deployment you're about to make. Answers to most of
+these questions were output at the end of your <code>terraform apply</code>. Azure
+credential information can be found in the <code>terraform.tfvars</code> file that you
+set up in your <code>terraform-work</code> directory outside of the bastion box. An
+example of a successful <code>genesis new</code> call is seen below. </p>
+
+<pre><code>ubuntu@bastion:~/deployments$ cd bosh-deployments
+ubuntu@bastion:~/deployments/bosh-deployments$ genesis new test-eastus-controlplane
+Setting up new environment test-eastus-controlplane...
+
+Using vault at http://127.0.0.1:8201.
+Verifying availability...ok
+
+
+Is this a proto-BOSH director?
+[y|n] &gt; y
+</code></pre>
+
+<p>We are deploying this BOSH without the aid of an existing BOSH, so this is a
+Proto-BOSH director</p>
+
+<pre><code>What static IP do you want to deploy this BOSH director on?
+&gt; 10.0.0.5
+
+What network should this BOSH director exist in (in CIDR notation)?
+&gt; 10.0.0.0/24
+
+What default gateway (IP address) should this BOSH director use?
+&gt; 10.0.0.1
+</code></pre>
+
+<p>This network information is output from your Terraform script. Assuming that
+your Terraform script is configured to use the 10.0.0.0/24 CIDR, then the
+gateway would be <code>10.0.0.1</code>, and the first available IP (after the network
+address, gateway, Azure reserved IPs, and bastion host) would be 10.0.0.5.</p>
+
+<pre><code>What DNS servers should BOSH use? (leave value empty to end)
+1st value &gt; 1.1.1.1
+2nd value &gt; 1.0.0.1
+3rd value &gt;
+</code></pre>
+
+<p>Select the DNS servers that you would like this BOSH director and all VMs
+deployed by this BOSH director to use. For this example, we're using
+Cloudflare's public DNS.</p>
+
+<pre><code>What IaaS will this BOSH director orchestrate?
+  1) VMWare vSphere
+  2) Amazon Web Services
+  3) Microsoft Azure
+  4) Google Cloud Platform
+  5) OpenStack
+  6) BOSH Warden
+
+Select choice &gt; Microsoft Azure
+
+What is your Azure Client ID?
+&gt; 01234567-89ab-cdef-0123-456789abcdef
+What is your Azure Client Secret?
+client_secret [hidden]:
+client_secret [confirm]:
+
+
+What is your Azure Tenant ID?
+&gt; 01234567-89ab-cdef-0123-456789abcdef
+
+What is your Azure Subscription ID?
+&gt; 01234567-89ab-cdef-0123-456789abcdef
+</code></pre>
+
+<p>If you've gotten this far into this guide, then you should most likely
+select Microsoft Azure as your infrastructure. The Azure Client ID, Client
+Secret, Tenant ID, and Subscription ID were all things you should have taken
+note of earlier when setting up your App Registration. Also, you should have
+placed this information in your <code>terraform.tfvars</code>.</p>
+
+<pre><code>What Azure Resource Group will BOSH be deploying VMs into?
+&gt; genesis
+
+What security group should be used as the BOSH default security group?
+&gt; genesis-sg
+
+What is the name of your Azure Virtual Network?
+&gt; genesis-network
+
+What is the name of the Azure subnet that the BOSH will be placed in?
+&gt; genesis-controlplane-subnet
+</code></pre>
+
+<p>These resources should all have been created by your Terraform script. The
+names of the created resources were output at the end of the <code>terraform apply</code>.
+All of the names are prefixed with the name you chose for your resource
+group.</p>
+
+<pre><code>Would you like to edit the environment file?
+[y|n] &gt; n
+ - auto-generating credentials (in secret/test/eastus/controlplane/bosh)...
+ - auto-generating certificates (in secret/test/eastus/controlplane/bosh)...
+New environment test-eastus-controlplane provisioned!
+
+To deploy, run this:
+
+  genesis deploy 'test-eastus-controlplane'
+</code></pre>
+
+<p>The command will then spend some time generating certificates and secrets
+for the deployment to use. These will get stored in the local Vault and made
+accessible by the <code>safe</code> utility.</p>
+
+<p>An environment file named after your environment name (e.g.
+<code>test-eastus-controlplane.yml</code>) will be created. This contains non-sensitive
+information about your deployment. It is safe to store this file in version
+control. To deploy your newly-configured BOSH deployment, you can now run:</p>
+
+<pre><code>ubuntu@bastion:~/deployments/bosh-deployments$ genesis deploy test-eastus-controlplane
+  Compiling package 'ruby-2.4-r4/0cdc60ed7fdb326e605479e9275346200af30a25'... Finished (00:05:47)
+  Compiling package 'bosh_azure_cpi/afc0bf467dd0d4489f757d788065ab4d4f977ce4'... Finished (00:01:55)
+  Installing packages... Finished (00:00:01)
+  Rendering job templates... Finished (00:00:01)
+  Installing job 'azure_cpi'... Finished (00:00:00)
+Finished installing CPI (00:07:45)
+
+Starting registry... Finished (00:00:00)
+Uploading stemcell 'bosh-azure-hyperv-ubuntu-xenial-go_agent/315.26'... Finished (00:02:24)
+
+Started deploying
+  Creating VM for instance 'bosh/0' from stemcell 'bosh-stemcell-90cb8ae1-9202-4555-8416-18fe08a1cb19'... Finished (00:02:20)
+  Waiting for the agent on VM 'agent_id:16d9e7ca-f62d-442c-43b2-9dd270517140;resource_group_name:genesis' to be ready... Finished (00:01:00)
+  Creating disk... Finished (00:00:13)
+  Attaching disk 'caching:None;disk_name:bosh-disk-data-612ab183-3042-4ec3-a077-e58a4e01ada8;resource_group_name:genesis' to VM 'agent_id:16d9e7ca-f62d-442c-43b2-9dd270517140;resource_group_name:genesis'... Finished (00:01:07)
+  Rendering job templates... Finished (00:00:36)
+  Compiling package 'golang/b348840d6ee6de87fdd43e4792fdbe1af734039b'... Finished (00:00:49)
+  Compiling package 'bpm-runc/cb758414ed267820880c6bf1ca57d7467c2d70bf'... Finished (00:02:02)
+  Compiling package 'ruby-2.4-r5/726cbb2214e138b576700db6a30698edb2b994e2'... Finished (00:02:12)
+  Compiling package 'mysql/de7350b5d6d835f758a62c0b3a8f07d3f0150d67abfa0da3967bd1127fada4c6'... Finished (00:00:47)
+  Compiling package 'libpq/b3fead55dd7c9fa83be2412b24db84d2b04dbdb5dd0583ee7e9afddbb200659a'... Finished (00:00:23)
+  Compiling package 'ruby-2.4-r4/0cdc60ed7fdb326e605479e9275346200af30a25'... Finished (00:02:05)
+  Compiling package 'openjdk_1.8.0/d2d85d44c6f0ee050ef1fb0149ce3da575234ad6'... Finished (00:00:12)
+  Compiling package 'gonats/a32f561770ebdc422c2f9955c7614c23900b9edc62aec51a6b48adc636516802'... Finished (00:00:01)
+  Compiling package 's3cli/4b6a4e65f277e1e4cdd9bfd8330de14ea28e9e5762a304f2d3a35f47958d7376'... Finished (00:00:01)
+  Compiling package 'nginx/d9c13905876ac2bc3f62657048750257794ecc53121ad7cd92583d3ef292b8b8'... Finished (00:00:48)
+  Compiling package 'bpm/d7c8de76cea8201f6cdf37d4f848b0a52c9c5798'... Finished (00:00:12)
+  Compiling package 'uaa_utils/90097ea98715a560867052a2ff0916ec3460aabb'... Finished (00:00:00)
+  Compiling package 'director/35121e0b2f3354dcfccbed5ea52ea2ccb14dd0d0b90cdd5c4be0787cbdd96ca6'... Finished (00:01:10)
+  Compiling package 'bosh_azure_cpi/afc0bf467dd0d4489f757d788065ab4d4f977ce4'... Finished (00:00:48)
+  Compiling package 'uaa/58ad7562f1d34ad24256fff92b3a241f8e101a2a'... Finished (00:00:56)
+  Compiling package 'postgres-9.4/ee3022bfae2cb7f7454aed9e28fe7715765b9a0086ef2045219f7a4e16baca81'... Finished (00:03:49)
+  Compiling package 'bosh-gcscli/a03b1fc29fd357b8e3023193c87ae9ee49db052965efe5b3d9bff3538ed2df4b'... Finished (00:00:01)
+  Compiling package 'registry/1d74c7cbca2216cdf7f51bc74eca2c831012dc25b5b53d66b3412042edb032ef'... Finished (00:00:50)
+  Compiling package 'credhub/0481a83e36b6179f4fc9f28088c4cd2ac3aa870a'... Finished (00:00:23)
+  Compiling package 'verify_multidigest/2405293bf44933ac48362d7e109fc38ea4469b962cf62715533ecca53c28bf7b'... Finished (00:00:01)
+  Compiling package 'davcli/100c52066493ef0d766c464c9cdd811c902a555013543bd16b62cf59ba5c72eb'... Finished (00:00:01)
+  Compiling package 'lunaclient/b922e045db5246ec742f0c4d1496844942d6167a'... Finished (00:00:03)
+  Compiling package 'health_monitor/8f3a84d055a292d385f4f2f0df42ba25eb424ccff6a3854e1209668fec263295'... Finished (00:00:26)
+  Updating instance 'bosh/0'... Finished (00:01:58)
+  Waiting for instance 'bosh/0' to be running... Finished (00:02:34)
+  Running the post-start scripts 'bosh/0'... Finished (00:00:02)
+Finished deploying (00:28:04)
+
+Stopping registry... Finished (00:00:00)
+Cleaning up rendered CPI jobs... Finished (00:00:00)
+
+Succeeded
+
+
+test-eastus-controlplane BOSH Director deployed!
+
+For details about the deployment, run
+
+  genesis info test-eastus-controlplane
+
+To set up a named alias for this director, run
+
+  genesis do test-eastus-controlplane -- alias
+
+To log into the BOSH director, as the admin user, run
+
+  genesis do test-eastus-controlplane -- login
+
+If this is a new BOSH director, you can upload
+stemcells by running
+
+  genesis do test-eastus-controlplane -- upload-stemcells
+</code></pre>
+
+<p>To log in to the BOSH director, there is a hook script provided for you by
+genesis. Hook scripts can be run with <code>genesis do</code>:</p>
+
+<pre><code>ubuntu@bastion:~/deployments/bosh-deployments$ genesis do test-eastus-controlplane -- login
+</code></pre>
+
+<h2>Uploading Your Cloud Config</h2>
+
+<p>The BOSH cloud config contains shared information about all the deployments
+you'll be deploying to your control plane environment. This includes the
+network IP allocations, VM sizes, disk sizes, availability zone configurations,
+and compilation VM configuration.</p>
+
+<p>The terraform script, as a part of its creation of the bastion host, has put
+a cloud config file for you at <code>$HOME/deployments/director-configs</code>. All you
+need to do is upload it.</p>
+
+<p>First, make sure that you're logged into bosh. Then run</p>
+
+<pre><code>bosh -e test-eastus-controlplane update-cloud-config $HOME/deployments/director-configs/controlplane.yml
+</code></pre>
+
+<p>Now your cloud config should be uploaded and ready to go.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="g">
+      <div class="x3">
+        <img src="/swlogo.png?0b567bdcee59ac95e3eaf667ec543ebc1631d6c0">
+
+        <p>Genesis is maintained by Stark &amp; Wayne,
+        a leading Cloud-Native consulting firm.</p>
+      </div>
+
+      <div class="x3">
+        <nav>
+          <li><a href="/">Home</a></li>
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/community/">Community</a></li>
+          <li><a href="/docs/">Docs</a></li>
+        </nav>
+      </div>
+
+      <div class="x3">
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>Copyright &copy; 2021 The Genesis Authors.  All rights reserved.</p>
+    </div>
+  </footer>
+  <script type="text/javascript" src="/site.js?d2112e355882784cf7f38561cf3ccb0bd5da3111"></script>
+</body>
+</html>
