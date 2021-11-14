@@ -72,13 +72,13 @@ h3 {
     text-decorations-in-effect: none;
 }
 .gwd-div-zzdx {
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 10px;
     height: 400%;
+    left: 49.79%;
     overflow: scroll;
     position: absolute;
     top: 50px;
     width: 50%;
-    left: 49.99%;
 }
 .gwd-ul-1ii0 {
     border-radius: 10px;
@@ -94,7 +94,6 @@ h3 {
     padding-left: 0px;
     top: 0px;
     width: 100%;
-    display: block;
 }
 .gwd-li-js4j {
     box-sizing: border-box;
@@ -102,10 +101,13 @@ h3 {
     list-style-type: none;
 }
 .gwd-a-ze3g {
-    background-color: rgb(0, 0, 0);
-    opacity: 1;
-    color: rgb(255, 255, 255);
-    display: none;
+    background-color: rgb(246, 246, 246);
+    border-color: rgb(221, 221, 221);
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+    display: block;
     font-family: Arial;
     font-size: 18px;
     list-style-type: none;
@@ -231,42 +233,12 @@ h3 {
 <body class="htmlNoPages">
   <div class="gwd-div-23hi">
     <div class="gwd-div-1wnw">
-      <form name="search" class="gwd-form-pxwk" autocomplete="false">
-        <input type="text" id="myInput" placeholder="Search Documentation" title="Search Documented Projects" class="gwd-input-1a8c" autocomplete="false" onclick="search()" onkeyup="myFunction()">
+      <form name="search" class="gwd-form-pxwk" autocomplete="off">
+        <input type="text" id="myInput" placeholder="Search Documentation" title="Search Documented Projects" class="gwd-input-1a8c" autocomplete="off" onclick="search()" onkeyup="myFunction()">
       </form>
     </div>
     <div class="gwd-div-zzdx" id="results">
-      <ul id="myUL" class="gwd-ul-1ii0">
-        <li class="gwd-li-js4j gwd-li-13le">
-          <a href="./storage/index.html" class="gwd-a-ze3g">
-            <h4 class="gwd-h4-1f18">About</h4>
-            <p class="gwd-p-shpk">What is Genesis, why use Genesis</p>
-          </a>
-        </li>
-        <li class="gwd-li-js4j gwd-li-13le gwd-li-1twh">
-          <a href="./storage/migration.html" class="gwd-a-ze3g">
-            <h4 class="gwd-h4-1f18">Migration</h4>
-            <p class="gwd-p-shpk">Migrating to using Genesis</p>
-          </a>
-        </li>
-        <li class="gwd-li-js4j gwd-li-1rio gwd-li-13le">
-          <a href="#" class="gwd-a-ze3g gwd-a-cv4q">
-            <h4 class="gwd-h4-1f18">Page 3</h4>
-            <p class="gwd-p-shpk">information page 3</p>
-          </a>
-        </li>
-        <li class="gwd-li-js4j gwd-li-1rio gwd-li-13le">
-          <a href="#" class="gwd-a-ze3g gwd-a-cv4q">
-            <h4 class="gwd-h4-1f18">Page 4</h4>
-            <p class="gwd-p-shpk">information page 4</p>
-          </a>
-        </li>
-        <li class="gwd-li-js4j gwd-li-1rio gwd-li-13le">
-          <a href="#" class="gwd-a-ze3g gwd-a-cv4q">
-            <h4 class="gwd-h4-1f18">Page 5</h4>
-            <p class="gwd-p-shpk">information page 5</p>
-          </a>
-        </li>
+      <ul id="myUL" class="gwd-ul-1ii0" style="display: none;">
       </ul>
     </div>
     <a href="./" class="gwd-a-1oyd">
