@@ -172,11 +172,53 @@
   </style>
 </head>
 
+  <script>
+    //document.getElementById("myinput").addEventListener("click", search);
+    function myFunction() {
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName("li");
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+      if (document.forms['search'].myInput.value === "") {
+        document.getElementById("myUL").style.display = "none";
+      } else {
+        document.getElementById("myUL").style.display = "block";
+      }
+    };
+
+    function myFunction2() {
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById("myInput2");
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL2");
+      li = ul.getElementsByTagName("li");
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    };
+  </script>
+  
 <body class="htmlNoPages">
   <div class="gwd-div-23hi">
     <div class="gwd-div-1wnw">
       <form name="search" class="gwd-form-pxwk">
-        <input type="text" id="myInput" placeholder="Search Documentation" title="Search Documented Projects" class="gwd-input-1a8c" onclick="search()" onkeyup="myFunction()">
+        <input type="text" id="myInput" placeholder="Search Documentation" title="Search Documented Projects" class="gwd-input-1a8c" onkeyup="myFunction()" onclick="search()">
       </form>
     </div>
     <div class="gwd-div-zzdx" id="results">
