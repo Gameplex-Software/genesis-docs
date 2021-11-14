@@ -30,7 +30,6 @@
       transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
       transform-style: preserve-3d;
       background: url("./assets/hero.jpg") center center / cover rgb(0, 0, 0);
-      background-repeat: none;
     }
     .gwd-div-zzdx {
       position: absolute;
@@ -313,28 +312,28 @@
     }
     .gwd-div-1fpq {
       position: absolute;
-      left: 0px;
-      top: 860px;
       width: 100%;
       background-image: none;
       background-color: rgb(16, 34, 16);
       height: 450px;
+      left: 0px;
+      top: 860px;
     }
     .gwd-div-1n7b {
       position: absolute;
       left: 0px;
-      width: 1520px;
       height: 145px;
       top: 305px;
       background-image: none;
       background-color: rgb(34, 51, 34);
+      width: 100%;
     }
     .gwd-img-1fpb {
       position: absolute;
       width: 360px;
       height: 44.7px;
-      left: 34px;
       top: 35px;
+      left: 34px;
     }
     .gwd-span-1deh {
       position: absolute;
@@ -354,7 +353,34 @@
       left: 49px;
       top: 48.97%;
     }
+    .gwd-img-11if {
+      position: absolute;
+      height: 45px;
+      width: 186.65px;
+      top: 165px;
+      left: 26.3px;
+    }
+    .gwd-span-u678 {
+      width: 187px;
+      height: 56px;
+      transform-origin: 50% 50% 0px;
+      top: 234px;
+      left: 34.05px;
+    }
+    .gwd-a-2pzq {
+      width: 187px;
+      height: 45px;
+      left: 34px;
+      top: 165px;
+    }
+    .gwd-a-etss {
+      left: 34px;
+      top: 36px;
+      width: 360px;
+      height: 45px;
+    }
   </style>
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,regular,500,600,700" rel="stylesheet" type="text/css">
   <script>
     function myFunction() {
       var input, filter, ul, li, a, i, txtValue;
@@ -412,7 +438,11 @@
   </div>
   <div class="gwd-div-1fpq">
     <div class="gwd-div-1n7b"><span class="gwd-span-mgdy">Copyright © 2021 The Genesis Authors. All rights reserved.</span></div>
-    <img src="assets/swlogo-1.png" id="swlogo-1" class="gwd-img-1fpb"><span class="gwd-span-1deh">Genesis is maintained by Stark &amp; Wayne, a leading<br>Cloud-Native consulting firm.</span></div>
+    <a href="https://www.starkandwayne.com/" class="gwd-a-etss">'<img src="assets/swlogo-1.png" id="swlogo-1" class="gwd-img-1fpb"></a><span class="gwd-span-1deh">Genesis is maintained by Stark &amp; Wayne, a leading<br>Cloud-Native consulting firm.</span><span class="gwd-span-1deh gwd-span-u678">Genesis documentation is maintained by Gameplex Software.<br></span>
+    <a href="https://gameplex-software.github.io" class="gwd-a-2pzq">
+      <img src="assets/cooltext383988475180358.png" id="cooltext383988475180358" class="gwd-img-11if">
+    </a>
+  </div>
   <div class="gwd-div-23hi">
     <div class="gwd-div-1wnw">
       <input type="text" id="myInput" placeholder="Search Documentation" title="Search Documented Projects" autocomplete="false" class="gwd-input-1a8c" onkeyup="myFunction()">
