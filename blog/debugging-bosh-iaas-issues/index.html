@@ -6,22 +6,22 @@
 <meta name="generator" content="verse">
 <meta name="X-UA-Compatible" content="IE=edge">
 
-<link rel="apple-touch-icon" sizes="57x57" href="./favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="./favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="./favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="./favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="./favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="./favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="./favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="./favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="./favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="./favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
-<link rel="manifest" href="./favicon/manifest.json">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/manifest.json">
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="./favicon/ms-icon-144x144.png">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 
 
@@ -41,20 +41,20 @@
 <title>Debugging BOSH IaaS Issues - Genesis</title>
 
 
-<link rel="stylesheet" href="./site.css?">
-<link rel="alternate home" type="application/rss+xml" title="Genesis - RSS feed" href="./feed.xml">
+<link rel="stylesheet" href="/site.css?">
+<link rel="alternate home" type="application/rss+xml" title="Genesis - RSS feed" href="/feed.xml">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50822525-8"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-50822525-8');</script>
 </head>
 <body>
   <header class="top">
-    <img src="./logo.png?">
+    <img src="/logo.png?">
     <nav>
-      <li><a href="./">Home</a></li>
-      <li><a href="./download/">Download</a></li>
-      <li><a href="./community/">Community</a></li>
-      <li><a href="./docs/">Docs</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/download/">Download</a></li>
+      <li><a href="/community/">Community</a></li>
+      <li><a href="/docs/">Docs</a></li>
     </nav>
   </header>
 
@@ -75,7 +75,7 @@
       <p class="meta">Nov 8 2018</p>
       
       <p class="intro">
-        <img src="./blog/header/sam-loyd-360eeb61a0ad.jpg"
+        <img src="/blog/header/sam-loyd-360eeb61a0ad.jpg"
              alt="Sam Loyd (@samloyd), via Unsplash">
         <cite>image credit <a target="_blank" href="https://unsplash.com/@samloyd">Sam Loyd (@samloyd), via Unsplash</a></cite>
       </p>
@@ -194,19 +194,19 @@ weren't there.</p>
 <p>Here's the relevant log snippet, in case it helps:</p>
 
 <pre><code>2018-11-08_15:53:49.01246 [File System] 2018/11/08 15:53:49 DEBUG - Checking if file exists /dev/xvdb
-2018-11-08_15:53:49.01248 [File System] 2018/11/08 15:53:49 DEBUG - Stat './dev/xvdb'
+2018-11-08_15:53:49.01248 [File System] 2018/11/08 15:53:49 DEBUG - Stat '/dev/xvdb'
 2018-11-08_15:53:49.01248 [File System] 2018/11/08 15:53:49 DEBUG - Checking if file exists /dev/vdb
-2018-11-08_15:53:49.01249 [File System] 2018/11/08 15:53:49 DEBUG - Stat './dev/vdb'
+2018-11-08_15:53:49.01249 [File System] 2018/11/08 15:53:49 DEBUG - Stat '/dev/vdb'
 2018-11-08_15:53:49.01249 [File System] 2018/11/08 15:53:49 DEBUG - Checking if file exists /dev/sdb
-2018-11-08_15:53:49.01249 [File System] 2018/11/08 15:53:49 DEBUG - Stat './dev/sdb'
+2018-11-08_15:53:49.01249 [File System] 2018/11/08 15:53:49 DEBUG - Stat '/dev/sdb'
 2018-11-08_15:53:49.01298 [unlimitedRetryStrategy] 2018/11/08 15:53:49 DEBUG - Making attempt #271
 2018-11-08_15:53:49.01300 [DelayedAuditLogger] 2018/11/08 15:53:49 ERROR - Unix syslog delivery error
 2018-11-08_15:53:49.11261 [File System] 2018/11/08 15:53:49 DEBUG - Checking if file exists /dev/xvdb
-2018-11-08_15:53:49.11264 [File System] 2018/11/08 15:53:49 DEBUG - Stat './dev/xvdb'
+2018-11-08_15:53:49.11264 [File System] 2018/11/08 15:53:49 DEBUG - Stat '/dev/xvdb'
 2018-11-08_15:53:49.11264 [File System] 2018/11/08 15:53:49 DEBUG - Checking if file exists /dev/vdb
-2018-11-08_15:53:49.11264 [File System] 2018/11/08 15:53:49 DEBUG - Stat './dev/vdb'
+2018-11-08_15:53:49.11264 [File System] 2018/11/08 15:53:49 DEBUG - Stat '/dev/vdb'
 2018-11-08_15:53:49.11265 [File System] 2018/11/08 15:53:49 DEBUG - Checking if file exists /dev/sdb
-2018-11-08_15:53:49.11265 [File System] 2018/11/08 15:53:49 DEBUG - Stat './dev/sdb'
+2018-11-08_15:53:49.11265 [File System] 2018/11/08 15:53:49 DEBUG - Stat '/dev/sdb'
 </code></pre>
 
 <p>Luckily, I was able to get into the compilation VM via SSH, and diagnose the
@@ -217,7 +217,7 @@ problem in under two hours.  And the demo lived happily ever after, the end.</p>
   <footer>
     <div class="g">
       <div class="x3">
-        <img src="./swlogo.png?">
+        <img src="/swlogo.png?">
 
         <p>Genesis is maintained by Stark &amp; Wayne,
         a leading Cloud-Native consulting firm.</p>
@@ -225,10 +225,10 @@ problem in under two hours.  And the demo lived happily ever after, the end.</p>
 
       <div class="x3">
         <nav>
-          <li><a href="./">Home</a></li>
-          <li><a href="./download/">Download</a></li>
-          <li><a href="./community/">Community</a></li>
-          <li><a href="./docs/">Docs</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/community/">Community</a></li>
+          <li><a href="/docs/">Docs</a></li>
         </nav>
       </div>
 
@@ -240,6 +240,6 @@ problem in under two hours.  And the demo lived happily ever after, the end.</p>
       <p>Copyright &copy; 2021 The Genesis Authors.  All rights reserved.</p>
     </div>
   </footer>
-  <script type="text/javascript" src="./site.js?"></script>
+  <script type="text/javascript" src="/site.js?"></script>
 </body>
 </html>
