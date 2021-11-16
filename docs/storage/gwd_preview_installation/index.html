@@ -613,6 +613,12 @@ body {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+.copycode {
+    background-color: yellow;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 30px;
 }</style>
   <script>
     $(document).ready(function() {
@@ -631,10 +637,10 @@ body {
       <span class="gwd-span-1u4q">wget -q -O - https://raw.githubusercontent.com/starkandwayne/homebrew-cf/master/public.key | apt-key add -</span></div>
     <div class="gwd-div-xyk9 gwd-div-x9hn gwd-div-1rfl">echo "deb http://apt.starkandwayne.com stable main" | tee /etc/apt/sources.list.d/starkandwayne.list</div>
     <div class="gwd-div-xyk9 gwd-div-x9hn gwd-div-tmax">apt-get update</div>
-    <div class="gwd-div-xyk9 gwd-div-x9hn"><span class="gwd-span-170d">apt-get install genesis -y</span>
+    <div class="gwd-div-xyk9 gwd-div-x9hn"><span class="gwd-span-170d">apt-get install genesis -y</span><br>
     <div class="tooltip">
-    <button class="copycode" onclick="copy('echo \" deb="" http:="" apt.starkandwayne.com="" stable="" main\"="" |="" tee="" etc="" apt="" sources.list.d="" starkandwayne.list="" ;="" apt-get="" update="" install="" genesis="" -y')"="" onmouseout="outFunc()">
-    <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+    <button class="copycode" onclick="copy('wget -q -O - https://raw.githubusercontent.com/starkandwayne/homebrew-cf/master/public.key | apt-key add - ; echo deb http://apt.starkandwayne.com stable main | tee /etc/apt/sources.list.d/starkandwayne.list ; apt-get update ; apt-get install genesis -y')" onmouseout="outFunc()">
+    <span class="tooltiptext">Copy to clipboard</span>
     Copy Code
     </button>
     </div>
@@ -650,7 +656,7 @@ body {
     <div class="gwd-div-xyk9 gwd-div-x9hn"><span class="gwd-span-rw4i">brew install genesis spruce safe bosh-cli vault git</span><br>
     <div class="tooltip">
     <button class="copycode" onclick="copy('brew tap starkandwayne/cf ; brew install genesis spruce safe bosh-cli vault git ; brew install genesis spruce safe bosh-cli vault git')" onmouseout="outFunc()">
-    <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+    <span class="tooltiptext">Copy to clipboard</span>
     Copy Code
     </button>
     </div>
@@ -669,7 +675,7 @@ body {
     <div class="gwd-div-xyk9 gwd-div-x9hn gwd-div-1nog">&nbsp; perl-local-lib perl-Carp perl-PathTools perl-Digest perl-File-Temp perl-Socket</div>
     <div class="tooltip">
     <button class="copycode" onclick="copy('sudo yum install -y perl perl-Data-Dumper perl-Time-Local perl-Time-Piece \ perl-local-lib perl-Carp perl-PathTools perl-Digest perl-File-Temp perl-Socket')" onmouseout="outFunc()">
-    <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+    <span class="tooltiptext">Copy to clipboard</span>
     Copy Code
     </button>
     </div>
@@ -687,7 +693,7 @@ body {
        chmod 0755 genesis<br>
     <div class="tooltip">
     <button class="copycode" onclick="copy('wget https://github.com/genesis-community/genesis/releases/latest ; chmod 0755 genesis')" onmouseout="outFunc()">
-    <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+    <span class="tooltiptext">Copy to clipboard</span>
     Copy Code
     </button>
     </div>
@@ -724,17 +730,14 @@ body {
 
   <script>
     function copy(val) {
-    var copyTextvalue = val
-    navigator.clipboard.writeText(copyTextvalue);
-  
-    var tooltip = document.getElementById("myTooltip");
-    tooltip.innerHTML = "Copied: " + copyTextvalue;
-  }
+      var copyTextvalue = val
+      navigator.clipboard.writeText(copyTextvalue);
+      $("myTooltip").html("Copied: " + copyTextvalue);
+    });
 
     function outFunc() {
-      var tooltip = document.getElementById("myTooltip");
-      tooltip.innerHTML = "Copy to clipboard";
-  }
-</script>
-  
+      $("myTooltip").html("Copy to clipboad");
+    });
+  </script>
+
 </body></html>

@@ -683,16 +683,16 @@
   </div>
 </body>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function copy(val) {
+  <script>
+    function copy(val) {
       var copyTextvalue = val
       navigator.clipboard.writeText(copyTextvalue);
       $("myTooltip").html("Copied: " + copyTextvalue);
-    });
+    }
 
-    document.addEventListener("DOMContentLoaded", function outFunc() {
+    function outFunc() {
       $("myTooltip").html("Copy to clipboad");
-    });
+    }
   </script>
 
 </html>
